@@ -1,19 +1,19 @@
 ﻿using System.Device.Gpio;
 
-namespace BrothersPilots
+namespace BrothersPilots.Hardwares.Leds
 {
-    internal class Led
+    public class Led
     {
         private readonly GpioPin _gpioPin;
 
         private PinValue _state = PinValue.Low;
 
-        internal Led(GpioPin gpioPin)
+        public Led(GpioPin gpioPin)
         {
             _gpioPin = gpioPin;
         }
 
-        internal PinValue Toggle()
+        public PinValue Toggle()
         {
             _state = !(bool)_state;
             _gpioPin.Write(_state);

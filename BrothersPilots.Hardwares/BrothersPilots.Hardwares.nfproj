@@ -8,17 +8,20 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectTypeGuids>{11A8DD76-328B-46DF-9F39-F559912D0360};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>ca5d5b8e-0d31-45a8-bc3c-a0084fe27b5f</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>1603d938-8719-489a-bcd6-4ed03dc15404</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <FileAlignment>512</FileAlignment>
-    <RootNamespace>BrothersPilots</RootNamespace>
-    <AssemblyName>BrothersPilots</AssemblyName>
+    <RootNamespace>BrothersPilots.Hardwares</RootNamespace>
+    <AssemblyName>BrothersPilots.Hardwares</AssemblyName>
     <TargetFrameworkVersion>v1.0</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.props" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.props')" />
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Adc\AdcMesurment.cs" />
+    <Compile Include="Board.cs" />
+    <Compile Include="Buttons\ButtonsControllers.cs" />
+    <Compile Include="Leds\Led.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -46,10 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BrothersPilots.Game\BrothersPilots.Applications.nfproj" />
-    <ProjectReference Include="..\BrothersPilots.Hardwares\BrothersPilots.Hardwares.nfproj" />
   </ItemGroup>
   <Import Project="$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets" Condition="Exists('$(NanoFrameworkProjectSystemPath)NFProjectSystem.CSharp.targets')" />
   <ProjectExtensions>

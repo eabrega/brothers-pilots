@@ -1,10 +1,10 @@
 ﻿using System.Device.Adc;
 
-namespace BrothersPilots
+namespace BrothersPilots.Hardwares.Adcs
 {
     public delegate void ExampleCallback(double lineCount);
 
-    internal class AdcMesurment
+    public class AdcMesurment
     {
         private static int counter = 0;
         private const uint VOLTAGES_ARRAY_LENGHT = 5;
@@ -12,7 +12,7 @@ namespace BrothersPilots
         private readonly AdcChannel _adcChannel;
         private double[] voltages;
 
-        internal AdcMesurment(
+        public AdcMesurment(
             ExampleCallback callback,
             AdcChannel adcChannel)
         {
