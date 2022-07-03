@@ -10,12 +10,12 @@ namespace BrothersPilots.Hardwares.Buttons
 
         public ButtonsControllers(int deviceId, int address)
         {
-            Configuration.SetPinFunction(7, DeviceFunction.I2C1_CLOCK);
-            Configuration.SetPinFunction(8, DeviceFunction.I2C1_DATA);
+            Configuration.SetPinFunction(22, DeviceFunction.I2C1_CLOCK);
+            Configuration.SetPinFunction(21, DeviceFunction.I2C1_DATA);
 
-            var connectionSettings = new I2cConnectionSettings(deviceId, address);
-
+            var connectionSettings = new I2cConnectionSettings(deviceId, address, I2cBusSpeed.FastMode);
             var i2cDevice = I2cDevice.Create(connectionSettings);
+
             _controller = new Mcp23017(i2cDevice);
             _controller.WriteByte(Register.IODIR, 0, Port.PortB);
         }
