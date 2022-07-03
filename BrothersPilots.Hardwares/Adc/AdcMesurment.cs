@@ -7,7 +7,7 @@ namespace BrothersPilots.Hardwares.Adcs
     public class AdcMesurment
     {
         private static int counter = 0;
-        private const uint VOLTAGES_ARRAY_LENGHT = 5;
+        private const uint VOLTAGES_ARRAY_LENGHT = 2;
         private readonly ExampleCallback _callback;
         private readonly AdcChannel _adcChannel;
         private double[] voltages;
@@ -46,7 +46,7 @@ namespace BrothersPilots.Hardwares.Adcs
                 accum += item;
             }
 
-            return accum / voltages.Length;
+            return accum / VOLTAGES_ARRAY_LENGHT;
         }
     }
 }
