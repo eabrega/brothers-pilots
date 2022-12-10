@@ -6,7 +6,6 @@ using System.Device.Adc;
 using System.Device.Gpio;
 using System.Diagnostics;
 using System.Threading;
-using nanoFramework.Hardware.Esp32;
 
 namespace BrothersPilots.Hardwares.Boards
 {
@@ -24,12 +23,11 @@ namespace BrothersPilots.Hardwares.Boards
         {
             var pin25 = _gpioController.OpenPin(25, PinMode.OutputOpenDrain);
             GreenLed = new(pin25);
-
-            Configuration.SetPinFunction(26, DeviceFunction.ADC1_CH0);
+          
             _adc1.ChannelMode = AdcChannelMode.SingleEnded;
             var ac0 = _adc1.OpenChannel(0);
             _adcMesurment = new AdcMesurment((x) => MasurmentPowerVoltage(x), ac0);
-            _timer = new Timer(x => MainTask(), "run", TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
+            _timer = new Timer(x => MainTask(), "run", TimeSpan.Zero, TimeSpan.FromMilliseconds(200));
 
             _statusLed.SetStatus(BoardStatus.Ok);
         }
