@@ -1,5 +1,4 @@
 ﻿using Iot.Device.Ws28xx.Esp32;
-using System.Diagnostics;
 using System.Drawing;
 
 namespace BrothersPilots.Hardwares.Boards
