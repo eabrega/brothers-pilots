@@ -28,13 +28,13 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Iot.Device.Mcp23xxx">
-      <HintPath>..\packages\nanoFramework.Iot.Device.Mcp23xxx.1.2.560\lib\Iot.Device.Mcp23xxx.dll</HintPath>
+      <HintPath>..\packages\nanoFramework.Iot.Device.Mcp23xxx.1.2.631\lib\Iot.Device.Mcp23xxx.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>..\packages\nanoFramework.CoreLibrary.1.15.5\lib\mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.Hardware.Esp32">
-      <HintPath>..\packages\nanoFramework.Hardware.Esp32.1.6.15\lib\nanoFramework.Hardware.Esp32.dll</HintPath>
+      <HintPath>..\packages\nanoFramework.Hardware.Esp32.1.6.19\lib\nanoFramework.Hardware.Esp32.dll</HintPath>
     </Reference>
     <Reference Include="nanoFramework.Runtime.Events">
       <HintPath>..\packages\nanoFramework.Runtime.Events.1.11.18\lib\nanoFramework.Runtime.Events.dll</HintPath>

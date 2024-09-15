@@ -5,9 +5,9 @@ namespace BrothersPilots.Hardwares.Boards
 {
     public class StatusLed
     {
-        private static readonly Color _okLedColor = Color.FromArgb(0xFF, 0, 120, 0);
-        private static readonly Color _worningLedColor = Color.FromArgb(0xFF, 140, 60, 0);
-        private static readonly Color _errorLedColor = Color.FromArgb(0xFF, 120, 0, 0);
+        private static readonly Color _okLedColor = Color.FromArgb(0xF, 0, 120, 0);
+        private static readonly Color _worningLedColor = Color.FromArgb(0xF, 140, 60, 0);
+        private static readonly Color _errorLedColor = Color.FromArgb(0xF, 120, 0, 0);
         private static readonly Sk6812 _statusLed = new(27, 1, 1);
 
         public void SetStatus(BoardStatus newStatus)
