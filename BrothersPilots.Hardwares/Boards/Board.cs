@@ -12,6 +12,8 @@ using System.Threading;
 
 namespace BrothersPilots.Hardwares.Boards
 {
+    public delegate void ButtonEvent(ushort value);
+
     public class Board
     {
         private double _powerVoltage = 0;
@@ -22,7 +24,6 @@ namespace BrothersPilots.Hardwares.Boards
         private readonly StatusLed _statusLed = new();
         private readonly Timer _timer;
         private readonly Timer _timer2;
-        private readonly Timer _timer3;
 
         private readonly GpioPin t1;
         private readonly GpioPin t2;
@@ -30,8 +31,10 @@ namespace BrothersPilots.Hardwares.Boards
         private readonly I2cDevice _i2cLcdDevice;
         private readonly LcdInterface _lcdInterface;
         private readonly Hd44780 _lcd;
-        private long sum = 0;
-        private int value = 0;
+
+        private int sum = 0;
+
+        public event ButtonEvent ButtonEvent;
 
         public Board()
         {
@@ -53,14 +56,27 @@ namespace BrothersPilots.Hardwares.Boards
             _lcd = new Lcd2004(_lcdInterface);
 
             _timer = new Timer(x => MainTask(), "run", TimeSpan.Zero, TimeSpan.FromMilliseconds(200));
-            _timer2 = new Timer(x => CheckButtons(), "run", TimeSpan.Zero, TimeSpan.FromMilliseconds(50));
-            _timer3 = new Timer(x => ToggleLamp(), "run", TimeSpan.Zero, TimeSpan.FromMilliseconds(500));
+            _timer2 = new Timer(x => CheckButtons(), "run", TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
 
             _statusLed.SetStatus(BoardStatus.Ok);
             //I2cScanner.Run();
         }
 
         public Led GreenLed { get; }
+
+        public void LcdWrite(int rowNumber, int colNumber, string value)
+        {
+            _lcd.UnderlineCursorVisible = false;
+            _lcd.SetCursorPosition(colNumber, rowNumber);
+            _lcd.Write(value);
+        }
+
+        public void LcdWrite(int rowNumber, int colNumber, char[] value)
+        {
+            _lcd.UnderlineCursorVisible = false;
+            _lcd.SetCursorPosition(colNumber, rowNumber);
+            _lcd.Write(value);
+        }
 
         private void MasurmentPowerVoltage(double value)
         {
@@ -70,36 +86,17 @@ namespace BrothersPilots.Hardwares.Boards
         private void MainTask()
         {
             new Thread(new ThreadStart(_adcMesurment.ThreadProc)).Start();
-            Debug.WriteLine(_powerVoltage.ToString());
             GreenLed.Toggle();
             CheckPowerVoltage();
         }
 
         private void CheckButtons()
         {
-            sum++;
-
-            _lcd.UnderlineCursorVisible = false;
-            _lcd.SetCursorPosition(0, 0);
-            _lcd.Write(_buttonsController.GetButtosValue().ToString() + "      ");
-            _lcd.SetCursorPosition(0, 1);
-            _lcd.Write(sum.ToString());
-            _lcd.SetCursorPosition(17, 0);
-            _lcd.Write("v3");
-        }
-
-        private void ToggleLamp()
-        {
-            value <<= 1;
-            value++;
-            if (value > ushort.MaxValue)
+            var value = _buttonsController.GetButtosValue();
+            if (value != 0)
             {
-                value = 0;
+                ButtonEvent.Invoke(value);
             }
-            
-            _buttonsController.SetValue((ushort)value);
-            _lcd.SetCursorPosition(0, 2);
-            _lcd.Write(value.ToString() + "     ");          
         }
 
         private void CheckPowerVoltage()
