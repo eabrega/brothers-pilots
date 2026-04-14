@@ -73,9 +73,12 @@ namespace BrothersPilots.Hardwares.Boards
 
         public void LcdWrite(int rowNumber, int colNumber, char[] value)
         {
-            _lcd.UnderlineCursorVisible = false;
-            _lcd.SetCursorPosition(colNumber, rowNumber);
-            _lcd.Write(value);
+            if (rowNumber >= 0 && colNumber >= 0)
+            {
+                _lcd.UnderlineCursorVisible = false;
+                _lcd.SetCursorPosition(colNumber, rowNumber);
+                _lcd.Write(value);
+            }
         }
 
         private void MasurmentPowerVoltage(double value)
